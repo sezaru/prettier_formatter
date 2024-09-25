@@ -1,6 +1,7 @@
 # PrettierFormatter
 
 A formatter that can be plugged in to `mix format` in order to format javascrit and css files.
+[![Hex.pm Version](http://img.shields.io/hexpm/v/prettier_formatter.svg)](https://hex.pm/packages/prettier_formatter)
 
 ## Installation
 
