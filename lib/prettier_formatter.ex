@@ -1,6 +1,6 @@
 defmodule PrettierFormatter do
   @moduledoc """
-  A formatter that can be plugged in to `mix format` in order to format javascrit
+  A formatter that can be plugged in to `mix format` in order to format javascript
   and css files.
 
   ## Usage
