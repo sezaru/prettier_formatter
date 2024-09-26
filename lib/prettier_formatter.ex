@@ -73,7 +73,7 @@ defmodule PrettierFormatter do
   defp run_format(contents, parser) do
     contents = String.replace(contents, "'", "'\"'\"'")
 
-    {contents, 0} = System.shell("echo '#{contents}' | prettier --stdin --parser #{parser}")
+    {contents, 0} = System.shell("echo '#{contents}' | prettier --parser #{parser}")
 
     contents
   end
