@@ -16,6 +16,18 @@ def deps do
 end
 ```
 
+Then, to install Prettier itself, first set the version you want to use by adding the following to your `config.exs`:
+
+```elixir
+config :prettier_formatter, :version, "3.3.3"
+```
+
+And then run:
+
+```sh
+mix prettier.install
+```
+
 ## Usage
 
 Add `PrettierFormatter` to the `.formatter.exs` plugin list.
