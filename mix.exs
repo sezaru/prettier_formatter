@@ -6,7 +6,7 @@ defmodule PrettierFormatter.MixProject do
   @app :prettier_formatter
   @name "PrettierFormatter"
   @description "A formatter to format javascript and css files."
-  @version "0.1.0"
+  @version "0.2.0"
   @github "https://github.com/sezaru/#{@app}"
   @author "Eduardo Barreto Alexandre"
   @license "MIT"
