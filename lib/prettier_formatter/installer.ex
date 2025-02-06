@@ -49,11 +49,16 @@ defmodule PrettierFormatter.Installer do
   end
 
   defp correct_version?(version) do
-    {output, 0} = System.shell("npm list --depth 1 -g --json prettier")
+    {output, _} = System.shell("npm list --depth 1 -g --json prettier")
 
-    installed_version = output |> Jason.decode!() |> Map.fetch!("dependencies") |> Map.fetch!("prettier") |> Map.fetch!("version")
-
-    version == installed_version
+    with json <- Jason.decode!(output),
+         dependencies when not is_nil(dependencies) <- Map.get(json, "dependencies"),
+         prettier when not is_nil(prettier) <- Map.get(dependencies, "prettier"),
+         installed_version when not is_nil(installed_version) <- Map.get(prettier, "version") do
+      version == installed_version
+    else
+      _ -> false
+    end
   end
 
   defp has_executable?(binary), do: binary |> System.find_executable() |> is_nil() |> Kernel.not()
