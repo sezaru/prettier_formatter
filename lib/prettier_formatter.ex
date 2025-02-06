@@ -46,7 +46,8 @@ defmodule PrettierFormatter do
   end
 
   @impl true
-  def format(contents, opts) do
+  def format(_contents, opts) do
+    file = Keyword.fetch!(opts, :file)
 
     version = configured_version()
 
@@ -62,18 +63,16 @@ defmodule PrettierFormatter do
 
     extension = Keyword.fetch!(opts, :extension)
 
-    do_format(contents, extension)
+    do_format(file, extension)
   end
 
-  defp do_format(contents, extension) when extension in ~w(.js .ts .jsx .tsx),
-    do: run_format(contents, "typescript")
+  defp do_format(file, extension) when extension in ~w(.js .ts .jsx .tsx),
+    do: run_format(file, "typescript")
 
-  defp do_format(contents, extension) when extension in ~w(.css), do: run_format(contents, "css")
+  defp do_format(file, extension) when extension in ~w(.css), do: run_format(file, "css")
 
-  defp run_format(contents, parser) do
-    contents = String.replace(contents, "'", "'\"'\"'")
-
-    {contents, 0} = System.shell("echo '#{contents}' | prettier --parser #{parser}")
+  defp run_format(file, parser) do
+    {contents, 0} = System.shell("prettier --parser #{parser} #{file}")
 
     contents
   end
