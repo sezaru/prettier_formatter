@@ -26,7 +26,7 @@ defmodule PrettierFormatter do
 
   @behaviour Mix.Tasks.Format
 
-  @latest_version "3.3.3"
+  @latest_version "3.4.2"
 
   def configured_version do
     unless Application.get_env(:prettier_formatter, :version) do
