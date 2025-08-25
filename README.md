@@ -11,7 +11,7 @@ The package can be installed by adding `prettier_formatter` to your list of depe
 ```elixir
 def deps do
   [
-    {:prettier_formatter, "~> 0.4.0"}
+    {:prettier_formatter, "~> 0.5.0"}
   ]
 end
 ```
