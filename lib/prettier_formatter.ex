@@ -72,7 +72,9 @@ defmodule PrettierFormatter do
   defp do_format(file, extension) when extension in ~w(.css), do: run_format(file, "css")
 
   defp run_format(file, parser) do
-    {contents, 0} = System.shell("prettier --parser #{parser} #{file}")
+    prettier = System.get_env("MIX_PRETTIER_PATH") || "prettier"
+
+    {contents, 0} = System.shell("#{prettier} --parser #{parser} #{file}")
 
     contents
   end

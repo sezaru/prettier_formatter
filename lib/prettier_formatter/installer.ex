@@ -5,6 +5,7 @@ defmodule PrettierFormatter.Installer do
 
   def installed?(version) do
     cond do
+      has_path_set?() -> :ok
       not has_executable?("npm") -> {:error, :npm_not_found}
       not has_executable?("prettier") -> {:error, :prettier_not_found}
       not correct_version?(version) -> {:error, :incorrect_version}
@@ -49,12 +50,20 @@ defmodule PrettierFormatter.Installer do
   end
 
   defp correct_version?(version) do
-    {output, _} = System.shell("prettier --version")
+    if check_version?() do
+      {output, _} = System.shell("prettier --version")
 
-    installed_version = String.trim(output)
+      installed_version = String.trim(output)
 
-    version == installed_version
+      version == installed_version
+    else
+      true
+    end
   end
+
+  defp check_version?, do: Application.get_env(:prettier_formatter, :version_check, true)
+
+  defp has_path_set?, do: Application.get_env(:prettier_formatter, :path, false)
 
   defp has_executable?(binary), do: binary |> System.find_executable() |> is_nil() |> Kernel.not()
 end
